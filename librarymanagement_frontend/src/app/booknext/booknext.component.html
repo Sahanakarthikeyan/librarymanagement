@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="home-btn">
+    <a [routerLink]="['/']">
+      <button>Home</button>
+    </a>
+  </div>
+  <h2>Book Details</h2>
+  <form id="b" name="form1" (ngSubmit)="onSubmit()" #bookForm="ngForm">
+    <div class="form-group">
+      <label for="bookName">Book Name</label>
+      <input type="text" id="bookName" placeholder="Enter Book Name" [(ngModel)]="bookName" name="bookName">
+    </div>
+    <div class="form-group">
+      <label for="author">Author</label>
+      <input type="text" id="author" placeholder="Enter Author Name" [(ngModel)]="author" name="author">
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" id="price" placeholder="Enter Price" [(ngModel)]="price" name="price">
+    </div>
+    <div class="form-group">
+      <label for="purchaseDate">Date of Purchase</label>
+      <input type="date" id="purchaseDate" placeholder="Enter Date of Purchase" [(ngModel)]="purchaseDate" name="purchaseDate">
+    </div>
+    <div class="form-group">
+      <label for="boughtFrom">Bought From</label>
+      <input type="text" id="boughtFrom" placeholder="Enter Place" [(ngModel)]="boughtFrom" name="boughtFrom">
+    </div>
+    <div class="form-group">
+      <label for="bookType">Book Type</label>
+      <select id="bookType" name="bookType" [(ngModel)]="bookType">
+        
+        <option>Physical</option>
+        <option>E Book</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="identity">Id</label>
+      <input type="number" id="identity" placeholder="Enter Book Id" [(ngModel)]="identity" name="identity">
+    </div>
+    <div class="form-group">
+      <label for="genre">Genre</label>
+      <select id="genre" name="genre" [(ngModel)]="genre">
+        <option>Fiction</option>
+        <option>Philosophy</option>
+        <option>Computer Vision</option>
+        <option>Science and Technology</option>
+        <option>Business and Economics</option>
+        <option>Others</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="isbn">ISBN</label>
+      <input type="number" id="isbn" placeholder="Enter ISBN" [(ngModel)]="isbn" name="isbn">
+    </div>
+    <div class="button-group">
+      <a [routerLink]="['/books']">
+        <button class="back-btn" type="button">Back</button>
+      </a>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+</div>

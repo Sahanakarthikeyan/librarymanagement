@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="home-btn">
+    <a [routerLink]="['/']">
+      <button>Home</button>
+    </a>
+  </div>
+  <h2>Add Customer Details </h2>
+  <form id="b" (ngSubmit)= "onSubmit()" #bookForm="ngForm">
+      <div class="form-group">
+  <label id="label" for="Book">Customer Firstname</label>
+  <input type="text" id="Book" placeholder="Enter First Name" [(ngModel)]="Fname" name="Fname" required> </div>
+  <div class="form-group">
+      <label id="label" for="Book">Customer Lastname</label>
+  <input type="text" id="Book" placeholder="Enter Last Name" [(ngModel)]="Lname" name="Lname" required> </div>
+  <div class="form-group">
+      <label id="label" for="Book">Mobile</label>
+  <input type="number" id="Book" placeholder="Enter Mobile no." [(ngModel)]="Mobile" name="Mobile" required> </div>
+  <div class="form-group">
+      <label id="label" for="Book">Email</label>
+  <input type="email" id="Book" placeholder="xyz@domain.com" [(ngModel)]="Email" name="Email" #Eref="ngModel"> </div>
+  <div *ngIf="Eref.invalid && Eref.touched" class="error">
+      Email is required.
+    </div>
+  <!-- <div class="form-group">
+      <label id="label" for="Book">Address</label>
+  <input type="text" id="Book" placeholder="Enter Address" [(ngModel)]="Address" name="Address" required> </div> -->
+  <div class="form-group">
+    <label for="Street">Street</label>
+    <input type="text" id="Street" placeholder="Enter Street" [(ngModel)]="Street" name="Street" required>
+  </div>
+  <div class="form-group">
+    <label for="City">City</label>
+    <input type="text" id="City" placeholder="Enter City" [(ngModel)]="City" name="City" required>
+  </div>
+  
+  <div class="form-group">
+      <label id="label" for="Book">Id</label>
+  <input type="text" id="Book" placeholder="Enter Customer Id" [(ngModel)]="Id" name="Id" required> </div>
+  <div class="form-group">
+    <label for="joinDate">Join Date</label>
+    <input type="date" id="joinDate" placeholder="Enter Date of Join" [(ngModel)]="joinDate" name="joinDate">
+  </div>
+  <div class="button-group">
+      <a [routerLink]="['/customers']">
+        <button class="back-btn" type="button">Back</button>
+      </a>
+      <button type="submit">Save</button>
+    </div>
+</form>
+</div>

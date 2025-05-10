@@ -1,0 +1,34 @@
+<div *ngIf="this.authorName">
+    <p id="a">Author - {{this.authorName}}</p>
+</div>
+
+<table id="table2" [cellSpacing]="15">
+    <div class="table2-div">
+       
+            <thead >
+                <tr id="trow">
+                    <th id="thead">Books Written</th>
+                    <th id="thead">Details</th>
+                </tr>
+            </thead>
+            <tbody>
+           
+            <tr id="trow" *ngFor="let a of this.author">
+                <td class="data">{{a.book_name}}</td>
+                <td class="data"> 
+                    <a href="#" [routerLink]="['/bookspec',a.book_name]">
+                        <button type="button" > More </button></a>
+                    
+                </td>
+            </tr>
+        </tbody>
+    </div>
+        <br>
+        
+</table>
+
+<br>
+<div style="text-align: center;">
+    <a href="#"  [routerLink]="['/authors',]">
+    <button class="back-btn" >Back</button></a>
+</div>

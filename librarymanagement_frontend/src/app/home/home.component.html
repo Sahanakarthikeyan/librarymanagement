@@ -1,0 +1,50 @@
+<div [ngClass]="'container'">
+  <p [ngClass]="'font'">Master</p>
+</div>
+<br>
+<div [ngClass]="'image-container-master'">
+<div>
+      <a href="/books" routerLink='/books'>
+        <img src="assets/book.jpg" alt="book">
+        <p (click)="navToBookPage()">Book</p>
+      </a>
+</div>
+
+<div>
+    <a href="/customers" routerLink='/customers'>
+      <img src="assets/borrow.jpg" alt="Borrow">
+      <p (click)="navToCustPage()">Borrow</p>
+    </a>
+</div>
+
+<div>
+    <a href="/authors" routerLink="/authors">
+      <img src="assets/author.jpg" alt="author">
+      <p (click)="navToAuthorPage()"> Author </p>
+    </a>
+</div>
+</div>
+
+<br><br>
+
+<div [ngClass]="'container'">
+<p [ngClass]="'font'">Transaction</p>
+</div>
+<br>
+<div [ngClass]="'image-container-trans'" >
+<div>
+  <a href="/lent" routerLink='/lent'>
+    <img src="assets/lend.jpg" alt="Lent">
+    <p (click)="navToLentPage()">Lent</p>
+  </a>
+</div>
+<div>
+  <a href="/returned" routerLink='/returned'>
+    <img src="assets/returned.jpg" alt="Returned">
+    <p (click)="navToReturnedPage()">Returned</p></a>
+</div>  
+
+<div ><a href="/report" routerLink='/report'>
+  <img src="assets/report.jpg" alt="Report" height="80px" width="60px">
+  <p (click)="navToReportPage()">Report</p></a></div>
+</div>

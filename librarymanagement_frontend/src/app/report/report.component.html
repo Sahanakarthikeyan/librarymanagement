@@ -1,0 +1,350 @@
+<div class="full-page">
+  <div class="report-filter">
+  <form (ngSubmit)="applyFilters()">
+    <div>
+      <label for="custId">Customer ID:</label>
+      <select [(ngModel)]="custIdValue" name="custId" (change)="onFilterChange()">
+        <option value="" selected>Select Customer ID</option>
+        <option *ngFor="let id of custIds" [value]="id">{{ id }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="status">Notification Status:</label>
+      <select [(ngModel)]="statusValue" name="status" (change)="onFilterChange()">
+        <option value="" selected >Select Notification Status</option>
+        <option *ngFor="let status of notificationStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="notificationType">Notification Type:</label>
+      <select [(ngModel)]="notificationTypeValue" name="notificationType" (change)="onFilterChange()">
+        <option value="" selected>Select Notification Type</option>
+        <option *ngFor="let type of notificationTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="transactionStatus">Transaction Status:</label>
+      <select [(ngModel)]="transactionStatusValue" name="transactionStatus" (change)="onFilterChange()">
+        <option value="" selected>Select Transaction Status</option>
+        <option *ngFor="let status of transactionStatuses" [value]="status">{{ status }}</option>
+      </select>
+    </div>
+    
+    <button type="submit">Filter</button>
+    <button type="button" (click)="resetFilters()">Reset Filters</button>
+    <!-- <button class="back-btn" (click)="downloadPageAsPDF()">Download Full Page</button> -->
+    <!-- Print Button -->
+    <!-- <button (click)="printTable()">Print Selected Rows</button> -->
+    <button (click)="printReport()">Print Report</button>
+  </form>
+</div>
+<!-- <div class="report-filter">
+  <table border="1" style="width: 100%; margin-top: 20px; text-align: left;">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Metric</th>
+        <th>Count</th>
+        <th>Metric</th>
+        <th>Count</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Notification Status</strong></td>
+        <td>Read</td>
+        <td>{{ readCount }} /  {{ totalReadCount }}</td>
+        <td>Unread</td>
+        <td>{{ unreadCount }} /  {{ totalUnreadCount }}</td>
+      </tr>
+      <tr>
+        <td><strong>Notification Type</strong></td>
+        <td>Payment Confirmation</td>
+        <td>{{ paymentConfirmationCount }} /  {{ totalPaymentConfirmationCount }}</td>
+        <td>Payment Due</td>
+        <td>{{ paymentDueCount }} /  {{ totalPaymentDueCount }}</td>
+      </tr>
+      <tr>
+        <td><strong>Transaction Status</strong></td>
+        <td>Paid</td>
+        <td>{{ paidCount }} /  {{ totalPaidCount }}</td>
+        <td>Not Paid</td>
+        <td>{{ notPaidCount }} /  {{ totalNotPaidCount }}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Customers</td>
+        <td>{{ customerCount }}</td>
+        <td>Total Customers</td>
+        <td>{{ totalCustomerCount }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+<!-- Search Box -->
+<div class="search-sort-container">
+  <!-- Sorting Section (Left) -->
+  <div class="sorting-section">
+    <label for="sortField"><b>Sort By:</b></label>
+    <select [(ngModel)]="sortField" name="sortField">
+      <option value="">Select</option>
+      <option value="transaction_id">Transaction ID</option>
+      <option value="cust_id">Customer ID</option>
+      <option value="due_amount">Amount</option>
+    </select>
+
+    <label for="sortOrder"><b>Order:</b></label>
+    <select [(ngModel)]="sortOrder" name="sortOrder">
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+
+    <button type="button" (click)="sortReports()">Sort</button>
+    <label for="maxRows"><b>Max Rows:</b></label>
+    <input 
+      type="number" 
+      [(ngModel)]="maxRows" 
+      (input)="fetchReportData()" 
+      min="1" 
+      placeholder="Enter max rows"
+    />
+    <!-- Reset Button -->
+    <button (click)="resetMaxRows()">Reset</button>
+</div>
+
+  <!-- Search Box (Right) -->
+  <div class="search-container">
+   <label><b>Search:</b></label>
+    <input 
+      type="text" 
+      placeholder="Search..." 
+      [(ngModel)]="searchQuery" 
+      (input)="filterReports()" 
+    />
+  </div>
+  <!-- Column Selection Dropdown -->
+<div class="search-column-container">
+  <label for="columnSelect"><b>Select Column:</b></label>
+  <select [(ngModel)]="selectedColumn" (change)="updateSearchBox()" name="columnSelect">
+    <option value="">Select</option>
+    <!-- <option value="notification_id">Notification ID</option> -->
+    <option value="cust_id">Customer ID</option>
+    <option value="book_id">Book ID</option>
+    <option value="message">Message</option>
+    <option value="notification_date">Notification Date</option>
+    <option value="notification_status">Notification Status</option>
+    <option value="notification_type">Notification Type</option>
+    <option value="action_link">Action Link</option>
+    <option value="transaction_id">Transaction ID</option>
+    <option value="lending_date">Lending Date</option>
+    <option value="due_amount">Due Amount</option>
+    <option value="transaction_status">Transaction Status</option>
+  </select>
+</div>
+
+</div>
+
+
+<!-- Report Table -->
+<div>
+  <table>
+    <thead>
+      <tr>
+        <!-- <th>
+          Notification ID
+          <input *ngIf="selectedColumn === 'notification_id'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." />
+        </th> -->
+        <th>
+          Customer ID
+          <input *ngIf="selectedColumn === 'cust_id'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="Cust_ID"/>
+                 <datalist id="Cust_ID">
+                  <option *ngFor="let id of custIds" [value]="id">{{ id }}</option>
+                </datalist>
+        </th>
+        <th>
+          Book ID
+          <input *ngIf="selectedColumn === 'book_id'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="Book_ID"/>
+                 <datalist id="Book_ID">
+                  <option *ngFor="let book of bookIds" [value]="book">{{ book }}</option>
+                </datalist>
+        </th>
+        <th>
+          Message
+          <input *ngIf="selectedColumn === 'message'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="Message"/>
+                 <datalist id="Message" >
+                  <option *ngFor="let m of msg" [value]="m">{{ m }}</option>
+                </datalist>
+        </th>
+        <th>
+          Notification Date
+          <input *ngIf="selectedColumn === 'notification_date'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="N_Date"/>
+                 <datalist id="N_Date" >
+                  <option *ngFor="let nd of ndate" [value]="nd">{{ nd }}</option>
+                </datalist>
+        </th>
+        <th>
+          Notification Status
+          <input *ngIf="selectedColumn === 'notification_status'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="N_Status"/>
+                 <datalist id="N_Status" >
+                  <option *ngFor="let status of transactionStatuses" [value]="status">{{ status }}</option>
+                </datalist>
+        </th>
+        <th>
+          Notification Type
+          <input *ngIf="selectedColumn === 'notification_type'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="N_Type"/>
+                 <datalist id="N_Type" >
+                  <option *ngFor="let type of notificationTypes" [value]="type">{{ type }}</option>
+                </datalist>
+        </th>
+        <th>
+          Action Link
+          <input *ngIf="selectedColumn === 'action_link'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="link"/>
+                 <datalist id="link" >
+                  <option *ngFor="let l of link" [value]="l">{{ l }}</option>
+                </datalist>
+        </th>
+        <th>
+          Transaction ID
+          <input *ngIf="selectedColumn === 'transaction_id'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." id="searchBox" list="T_ID"/>
+                 <datalist id="T_ID" >
+                  <option *ngFor="let TrID of trans_id" [value]="TrID">{{ TrID }}</option>
+                </datalist>
+        </th>
+        <th>
+          Lending Date
+          <input *ngIf="selectedColumn === 'lending_date'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." d="searchBox" list="L_Date"/>
+                 <datalist id="L_Date" >
+                  <option *ngFor="let ld of ldate" [value]="ld">{{ ld }}</option>
+                </datalist>
+        </th>
+        <th>
+          Due Amount
+          <input *ngIf="selectedColumn === 'due_amount'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." d="searchBox" list="due"/>
+                 <datalist id="due" >
+                  <option *ngFor="let due of due" [value]="due">{{ due }}</option>
+                </datalist>
+        </th>
+        <th>
+          Transaction Status
+          <input *ngIf="selectedColumn === 'transaction_status'" 
+                 type="text" 
+                 [(ngModel)]="searchQuery" 
+                 (input)="filterReports()" 
+                 placeholder="Search..." d="searchBox" list="status"/>
+                 <datalist id="status" >
+                  <option *ngFor="let status of transactionStatuses" [value]="status">{{ status }}</option>
+                </datalist>
+        </th>
+        <th>Select / Deselect All<input type="checkbox" (change)="toggleSelectAll()" /></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of filteredReports">
+        <!-- <td>{{ report.notification_id }}</td> -->
+        <td>{{ report.cust_id }}</td>
+        <td>{{ report.book_id }}</td>
+        <td>{{ report.message }}</td>
+        <td>{{ report.notification_date }}</td>
+        <td>{{ report.notification_status }}</td>
+        <td>{{ report.notification_type }}</td>
+        <td>{{ report.action_link }}</td>
+        <td>{{ report.transaction_id }}</td>
+        <td>{{ report.lending_date }}</td>
+        <td>{{ report.due_amount }}</td>
+        <td>{{ report.transaction_status }}</td>
+        <td>  <input 
+          type="checkbox" 
+          [(ngModel)]="report.selected" 
+          (change)="toggleRowSelection(report)" /></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="header">
+  <p>Showing {{ customerCount }} Customers filtered from {{ totalCustomerCount }}</p>
+  <button (click)="printTable()">Print</button>
+</div>
+
+<!-- Charts Section -->
+<div class="container">
+  <div class="bar-chart">
+    <canvas id="barCanvas"></canvas>
+  </div>
+  <div class="pie-chart">
+    <canvas id="pieCanvas"></canvas>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cust-transaction-chart">
+    <canvas id="custTransactionCanvas"></canvas>
+  </div>
+</div>
+
+<br />
+
+<div style="text-align: center;">
+  <a href="#">
+    <button  class="back-btn">Back</button>
+  </a>
+</div>
+
+
+<!-- Customer Transaction Chart Canvas -->
+<!-- <div class="cust-transaction-chart">
+   <canvas id="custTransactionCanvas"></canvas>
+</div> -->
+<!-- Combined Chart -->
+<!-- <div class="combined-chart">
+  <canvas id="combinedCanvas"></canvas> 
+</div> -->
+
+</div>

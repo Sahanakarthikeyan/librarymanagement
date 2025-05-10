@@ -1,0 +1,31 @@
+<a href="#" [routerLink]="['/']">
+    <button class="home-btn">Home</button>
+</a>
+  <h1 class="heading">Author Details</h1>
+<div class="container">
+<table [cellPadding]="15" id="table1">
+    <thead>
+        <tr id="trow">
+            <th id="thead">Authors List</th>
+            <th id="thead" >Details</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="trow" *ngFor="let a of author">
+            <td id="tdata1">{{a.author}}</td>
+            <td id="tdata1"> 
+                <span id="more-btn"><a href="#" [routerLink]="['/authors',a.author]">
+                    <button type="button"> More </button></a>
+                </span>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<br>
+</div>
+  <div style="text-align: center;">
+        <a href="#"  [routerLink]="['/']">
+    <button class="back-btn" >Back</button></a>
+</div>

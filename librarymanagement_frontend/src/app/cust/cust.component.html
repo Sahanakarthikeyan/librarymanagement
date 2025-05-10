@@ -1,0 +1,41 @@
+<div class="top-btn">
+     
+    <a [routerLink]="['/']">
+      <button class="home-btn">Home</button>
+    </a>
+    <a href="/custnext" routerLink="/custnext">
+        <button >Add a Customer</button></a>
+</div>
+
+<h1 class="heading">Borrower Details</h1>
+
+
+<table [cellPadding]="15" id="table1">
+    <thead>
+        <tr id="trow">
+            <th id="thead">Borrower List</th>
+            <th id="thead" style="padding-left: 41.5px;">Details</th>
+            <th id="thead" style="padding-left: 50px;">Delete</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="trow" *ngFor="let c of cust">
+            <td id="tdata">{{c.cust_fname}} {{c.cust_lname}}</td>
+            <td id="tdata"> 
+                <a href="#"  [routerLink]="['/customers',c.cust_id]">
+                    <button type="button"> More </button></a>
+            </td>
+            
+            <td>
+                                  
+                <button type="button" (click)="checkAndDelete(c.cust_id)"> Delete </button>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<br>
+
+    <a href="#"  [routerLink]="['/']">
+    <button class="back-btn" >Back</button></a>

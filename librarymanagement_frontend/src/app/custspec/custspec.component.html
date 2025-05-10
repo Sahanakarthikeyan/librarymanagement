@@ -1,0 +1,68 @@
+<ng-container *ngIf="!showCust; else borrowedBook">
+  <div class="top-btn">
+     
+    <a [routerLink]="['/']">
+      <button class="home-btn">Home</button>
+    </a>
+  <button (click)="editCust(cust?.cust_id)" class="edit-btn">Edit</button>
+</div>
+    <h2>Borrower Details</h2>
+  
+    <table>
+      <tbody>
+        <tr>
+          <td id="title">Borrower Firstname</td>
+          <td id="data">{{ cust?.cust_fname }}</td>
+        </tr>
+        <tr>
+          <td id="title">Borrower Lastname</td>
+          <td id="data">{{ cust?.cust_lname }}</td>
+        </tr>
+        <tr>
+          <td id="title">Id</td>
+          <td id="data">{{ cust?.cust_id }}</td>
+        </tr>
+        <tr>
+          <td id="title">Mobile</td>
+          <td id="data">{{ cust?.mobile }}</td>
+        </tr>
+        <tr>
+          <td id="title">Email</td>
+          <td id="data">{{ cust?.email }}</td>
+        </tr>
+        <tr>
+          <td id="title">Address</td>
+          <td id="data">{{ cust?.address }}</td>
+        </tr>
+        <tr>
+          <td id="title">Join Date</td>
+          <td id="data">{{ cust?.join_date }}</td>
+        </tr>
+      </tbody>
+    </table>
+  <div class="bottom-buttons">
+    <br><br>
+    <button (click)="fetchBookButton()">Books Borrowed</button>
+  
+    <a [routerLink]="['/customers']">
+      <button class="back-btn">Back</button>
+    </a>
+  </div>
+  </ng-container>
+  
+  <ng-template #borrowedBook>
+    <div class="centered-container">
+      <table>
+        <tbody class="templatebody">
+          <tr *ngFor="let b of bookDeet">
+            <td id="data">{{ b.book_name }} - {{ b.book_id }}</td>
+          </tr>     
+        </tbody>
+      </table>
+      <div class="back-btn">
+        <button (click)="fetchBookButton()">Back</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  

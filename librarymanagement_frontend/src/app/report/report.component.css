@@ -1,0 +1,256 @@
+/* General Page Styling */
+body {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color: #d2691e; /* Chocolate background color */
+  color: #fff8dc; /* Cornsilk font color for better contrast */
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(176, 118, 118, 0.1);
+}   
+
+.home-btn {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1cm;
+  color: #1f3b4d;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+
+input:focus, select:focus {
+  border-color: #8b4513; /* Darker chocolate color */
+  outline: none;
+  box-shadow: 0 0 5px rgba(139, 69, 19, 0.3);
+}
+
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.greendot {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(12, 174, 12); /* Green dot */
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  margin-left: 18px;
+}
+
+.report-filter {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.report-filter form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.report-filter form > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-filter label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.report-filter input, .report-filter select {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.report-filter select {
+  background-color: #fff;
+}
+
+.report-filter button{
+  background-color: #4CAF50; /* Green button */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+}
+button{
+  background-color: #4CAF50; /* Green button */
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width:100px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.report-filter button:hover {
+  background-color: #45a049;
+}
+
+.report-filter form > div:nth-child(4), .report-filter form > div:nth-child(5) {
+  grid-column: span 2;
+}
+
+.report-table {
+  margin-top: 30px;
+  max-width: 1000px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2;
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+  .report-filter form {
+      grid-template-columns: 1fr;
+  }
+
+  .report-filter button {
+      width: 100%;
+  }
+
+  .report-table table {
+      width: 100%;
+      font-size: 0.9rem;
+  }
+}
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.bar-chart,
+.pie-chart,
+.cust-transaction-chart {
+ margin-top: 20px;
+ width: 100%;
+ height: 100%;
+ max-width: 600px; /* Adjust as needed */
+ height: auto;
+ display: flex;
+}
+.container{
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 6000px;
+height: 100%;
+box-sizing: border-box;
+padding-top: 8px;
+}
+.combined-chart {
+margin-top: 20px;
+width: calc(100% - 40px); /* Adjust as needed */
+max-width:600px; /* Adjust as needed */
+height:auto;
+}
+
+@media print {
+/* Hide elements you don't want to print */
+.no-print {
+  display: none;
+}
+
+/* Adjust page margins, fonts, etc. */
+body {
+  font-family: Arial, sans-serif;
+  margin: 10mm;
+}
+}
+.search-sort-container {
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+margin-bottom: 10px;
+}
+
+.sorting-section {
+display: flex;
+align-items: center;
+gap: 10px; /* Adds spacing between sorting elements */
+}
+
+.search-container {
+flex: 1; /* Pushes it to the right */
+display: flex;
+justify-content: flex-end; /* Aligns the search box to the right */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

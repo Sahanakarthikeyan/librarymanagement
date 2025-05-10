@@ -1,0 +1,65 @@
+<h1 class="heading">Book Details</h1>
+<div id="add">
+  <a href="#" [routerLink]="['/']">
+    <button class="back-btn">Home</button>
+  </a>
+  &nbsp;
+  <a href="/booknext" [routerLink]="['/booknext']">
+    <button>Add a Book</button>
+  </a>
+</div>
+<br>
+
+<div id="notes">
+  <div id="greenspan" class="greendot">
+    <div class="notes1">Available</div>
+  </div>
+  <div id="redspan" class="reddot">
+    <div class="notes2">Borrowed</div>
+  </div>
+</div>
+<br>
+
+<table [cellPadding]="15" id="table1">
+  <thead>
+    <tr id="trow">
+      <th id="thead">Book Name</th>
+      <th id="thead">Author Name</th>
+      <th id="thead">Indicator</th>
+      <th id="thead">More Details</th>
+      <th id="thead" style="padding-left: 45px;">Delete</th>
+      <th id="thead" style="padding-left: 57px;">Generate QR Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="trow" *ngFor="let b of books$ | async">
+      <td id="tdata">{{b.book_name}}</td>
+      <td id="tdata">{{b.author}}</td>
+      <td id="tdata">
+        <span *ngIf="b.indicator === 'green'" class="greendot"></span>
+        <span *ngIf="b.indicator === 'red'" class="reddot"></span>
+      </td>
+      <td>
+        <a href="#" [routerLink]="['/books', b.book_name]">
+          <button type="button">Next</button>
+        </a>
+      </td>
+      <td>
+        <button type="button" (click)="DeleteBook(b.book_id, b.indicator,b.book_type)">Delete</button>
+      </td>
+      <td>
+        <button type="button" (click)="generateQRCode(b.book_name)">Generate QR Code</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+<div *ngIf="selectedQRCode" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeQRCode()">&times;</span>
+    <img [src]="selectedQRCode" alt="QR Code">
+  </div>
+</div>

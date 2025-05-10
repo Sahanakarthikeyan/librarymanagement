@@ -1,0 +1,29 @@
+<div>
+    <a href="#"  [routerLink]="['/']">
+    <button class="back-btn" >Home</button></a>
+</div>
+<h2> Returned Books </h2>
+<div  class="container">
+<table [cellPadding]="15" id="table1">
+    <thead>
+        <tr id="trow">
+            <th id="thead">Book Name</th>
+            <th id="thead">Author Name</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="trow" *ngFor="let r of returned">
+            <td id="tdata">{{r.book_name}}</td>
+            <td id="tdata">{{r.author}}</td>
+            
+        </tr> 
+        
+    </tbody>
+</table>
+</div>
+<br>
+<div style="text-align: center;">
+<a href="#"  [routerLink]="['/']">
+<button class="back-btn" >Back</button></a>
+</div>

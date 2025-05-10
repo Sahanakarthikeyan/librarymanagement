@@ -1,0 +1,65 @@
+<div class="top-btn">
+     
+    <a [routerLink]="['/']">
+      <button class="home-btn">Home</button>
+    </a>
+  <button (click)="editBook(book.book_name)" class="edit-btn">Edit</button>
+</div>
+
+<h2 style="text-align: center;">{{book.book_name}}</h2>
+
+<table id="table2">
+    <div class="bkdetails">
+        <tbody *ngIf="book">
+
+
+                <tr>
+                    <td id="title">Book Name:</td>
+                    <td id="data">{{book.book_name}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Author Name:</td>
+                    <td id="data">{{book.author}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Genre</td>
+                    <td id="data">{{book.genre}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Price:</td>
+                    <td id="data">{{book.price}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Date Of Purchase:</td>
+                    <td id="data">{{book.date_of_purchase}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Bought From:</td>
+                    <td id="data">{{book.bought_from}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Current Status:</td>
+                    <td id="data">{{book.current_status}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Id</td>
+                    <td id="data">{{book.book_id}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Book Type:</td>
+                    <td id="data">{{book.book_type}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">ISBN:</td>
+                    <td id="data">{{book.isbn}}</td>
+                </tr><br>
+                <tr>
+                    <td id="title">Last Borrower:</td>
+                    <td id="data">{{book.last_borrower}}</td>
+                </tr><br>
+        </tbody>
+    </div>
+</table>
+
+    <div  class="back-btn"><a href="#"  [routerLink]="['/books']">
+    <button >Back</button></a></div>
